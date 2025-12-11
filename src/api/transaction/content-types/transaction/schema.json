@@ -1,0 +1,46 @@
+{
+    "kind": "collectionType",
+    "collectionName": "transactions",
+    "info": {
+        "singularName": "transaction",
+        "pluralName": "transactions",
+        "displayName": "Transaction",
+        "description": "Financial transactions between users"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "description": {
+            "type": "string"
+        },
+        "amount": {
+            "type": "decimal",
+            "required": true
+        },
+        "payer": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "plugin::users-permissions.user",
+            "inversedBy": "transactions_paid"
+        },
+        "receiver": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "plugin::users-permissions.user",
+            "inversedBy": "transactions_received"
+        },
+        "date": {
+            "type": "datetime"
+        },
+        "status": {
+            "type": "enumeration",
+            "enum": [
+                "pending",
+                "settled"
+            ],
+            "required": true
+        }
+    }
+}
